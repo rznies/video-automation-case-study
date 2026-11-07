@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How We Automated a 10-Minute Video Localization in Minutes</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    
+    :root {
+      --bg: #090d16;
+      --card-bg: #111726;
+      --card-border: #1e293b;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --purple: #a855f7;
+      --green: #22c55e;
+      --orange: #f97316;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: #e2e8f0;
+      scroll-behavior: smooth;
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .glass-card {
+      background: rgba(17, 23, 38, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-2px);
+      transition: all 0.25s ease;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .step-pill.active {
+      background: #38bdf8;
+      color: #090d16;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    }
+  </style>
+</head>
+<body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8 selection:bg-cyan-500 selection:text-black">
+
+  <!-- Main Container -->
+  <div class="max-w-5xl mx-auto space-y-14">
+
+    <!-- Hero Header -->
+    <header class="text-center space-y-4 pt-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-semibold tracking-wide uppercase">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        AI & Code Automation Case Study
+      </div>
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+        How We Localized a 10-Minute Drama Video <br class="hidden sm:inline">
+        <span class="gradient-text">In Minutes, Not Hours</span>
+      </h1>
+      <p class="max-w-2xl mx-auto text-slate-400 text-base sm:text-lg leading-relaxed">
+        A quick, visual guide explaining how artificial intelligence, audio algorithms, and code took a complex video editing assignment and automated it end-to-end.
+      </p>
+
+      <!-- Key Stat Badges -->
+      <div class="pt-4 flex flex-wrap justify-center gap-4 text-sm font-medium">
+        <div class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-2">
+          <span class="text-red-400">⏱️ Manual Time:</span>
+          <span class="text-slate-300 font-bold">6 – 8 Hours</span>
+        </div>
+        <div class="px-4 py-2 rounded-xl bg-cyan-950/60 border border-cyan-500/30 flex items-center gap-2">
+          <span class="text-cyan-400">🚀 Automated Time:</span>
+          <span class="text-white font-bold">~3 Minutes</span>
+        </div>
+        <div class="px-4 py-2 rounded-xl bg-purple-950/60 border border-purple-500/30 flex items-center gap-2">
+          <span class="text-purple-400">💰 AI Audit Cost:</span>
+          <span class="text-white font-bold">&lt; $0.005 (Half a cent)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: The Challenge (What is this?) -->
+    <section class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg">1</div>
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">The Assignment (In Plain English)</h2>
+          <p class="text-slate-400 text-sm">Why did this video need to be made?</p>
+        </div>
+      </div>
+
+      <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+        A media company produces mini-drama series for mobile apps (like TikTok and Reels). They had a popular <strong>10-minute English preview video</strong> for a series called <em>"My Mother is a Mafia Boss"</em>. They wanted to release it in <strong>Germany</strong>.
+      </p>
+
+      <!-- Before / After Visual Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <!-- Before -->
+        <div class="p-5 rounded-xl border border-red-500/20 bg-red-950/10 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase font-bold text-red-400 tracking-wider">Before (Raw English Input)</span>
+            <span class="text-lg">🇺🇸</span>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li class="flex items-start gap-2">❌ English voiceover narrator with English text overlay</li>
+            <li class="flex items-start gap-2">❌ 10 different episode scenes where actors speak English</li>
+            <li class="flex items-start gap-2">❌ Burned-in English third-party channel watermarks</li>
+            <li class="flex items-start gap-2">❌ English Call-to-Action download screen at the end</li>
+          </ul>
+        </div>
+
+        <!-- After -->
+        <div class="p-5 rounded-xl border border-emerald-500/30 bg-emerald-950/10 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase font-bold text-emerald-400 tracking-wider">After (Final German Master)</span>
+            <span class="text-lg">🇩🇪</span>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li class="flex items-start gap-2">✅ German narrator voiceover + clean German show title</li>
+            <li class="flex items-start gap-2">✅ Synchronized German subtitles at the bottom</li>
+            <li class="flex items-start gap-2">✅ All 10 scenes swapped to German dubbed dialogue (0 frame drift)</li>
+            <li class="flex items-start gap-2">✅ Localized German 3D mobile app end card</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: The 3-Part Video Anatomy -->
+    <section class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg">2</div>
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">The 3 Parts of the Video</h2>
+          <p class="text-slate-400 text-sm">Every promo is split into three distinct chapters</p>
+        </div>
+      </div>
+
+      <!-- Timeline Bar Graphic -->
+      <div class="space-y-2">
+        <div class="h-6 w-full rounded-lg overflow-hidden flex text-xs font-bold text-slate-900 text-center select-none shadow-inner">
+          <div class="bg-cyan-400 flex items-center justify-center" style="width: 12%;">Hook (24s)</div>
+          <div class="bg-indigo-400 flex items-center justify-center" style="width: 80%;">10 German Dubbed Episodes (~10 min)</div>
+          <div class="bg-orange-400 flex items-center justify-center" style="width: 8%;">CTA (7s)</div>
+        </div>
+        <div class="flex justify-between text-xs text-slate-500 font-mono">
+          <span>00:00</span>
+          <span>00:24</span>
+          <span>10:36</span>
+          <span>10:43</span>
+        </div>
+      </div>
+
+      <!-- 3 Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="text-cyan-400 font-bold text-sm">Part 1: The Opening Hook (0–24s)</div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            The narrator hooks the audience. We blurred out the old English title with a soft 25px feather, overlaid the German title logo (<em>"Meine Mutter ist die Mafia-Königin"</em>), and burned crisp German subtitles.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="text-indigo-400 font-bold text-sm">Part 2: The Episode Scenes (24s–10m 36s)</div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            The body of the show. We lined up the audio waveforms to find exact cut points across Episodes 5 to 14, then replaced English footage with clean German dubbed master video.
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="text-orange-400 font-bold text-sm">Part 3: The End Card CTA (10m 36s–10m 43s)</div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            The finish screen telling viewers to download the app. We attached the German 3D smartphone animation with localized title art and German voiceover.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: The Tech Team (Tool Breakdown) -->
+    <section class="space-y-6">
+      <div class="text-center space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Meet the Tech Team</h2>
+        <p class="text-slate-400 text-sm max-w-xl mx-auto">
+          Here is every tool we used and the specific "superpower" it provided during the project.
+        </p>
+      </div>
+
+      <!-- Tools Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <!-- Tool 1: SciPy -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-cyan-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🎧</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800">Python / SciPy</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Shazam Detective</h3>
+            <p class="text-xs text-cyan-400 font-mono">Waveform Cross-Correlation</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Instead of an editor scrubbing audio by ear for 45 minutes, SciPy slides the audio waveform like a puzzle piece against full episodes. The moment the sound waves align, it locks in the exact cut timecode in <strong>under 10 seconds</strong>.
+          </p>
+        </div>
+
+        <!-- Tool 2: OpenCV -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-blue-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">👁️</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-blue-950 text-blue-400 border border-blue-800">OpenCV (cv2)</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Robot Eyes</h3>
+            <p class="text-xs text-blue-400 font-mono">Computer Vision & Frame Extraction</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Lets the computer "see" every frame. It plays <em>"Where's Waldo?"</em> to find exact logo coordinates and plays <em>"Spot the Difference"</em> to detect exact frame cuts where scenes change.
+          </p>
+        </div>
+
+        <!-- Tool 3: NumPy -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-indigo-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🧮</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-indigo-950 text-indigo-400 border border-indigo-800">NumPy</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Pixel Math Brain</h3>
+            <p class="text-xs text-indigo-400 font-mono">High-Speed Matrix Math</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Each video frame has 2 million pixel numbers. NumPy crunches millions of pixels in milliseconds, generating smooth cosine curves so the watermark blur fades out softly like an airbrush without ugly rectangular box seams.
+          </p>
+        </div>
+
+        <!-- Tool 4: FFmpeg -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-emerald-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🎬</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">FFmpeg Suite</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Hollywood Video Factory</h3>
+            <p class="text-xs text-emerald-400 font-mono">Headless Render Engine</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            The heavy-lifting video editor with no graphical user interface. Slices episode clips, applies procedural blur filters, overlays the German logo, burns subtitles, and renders pristine 1080p vertical video.
+          </p>
+        </div>
+
+        <!-- Tool 5: Gemini 3.8 Flash -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-purple-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🧠</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-purple-950 text-purple-400 border border-purple-800">Gemini 3.8 Flash</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Eagle-Eyed Director</h3>
+            <p class="text-xs text-purple-400 font-mono">Multimodal AI Video Quality Gate</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Acts as the autonomous quality inspector. Examined rendered video frames, caught faint ghost text (<em>"MOTHER"</em>) and color fringing, and gave the final pass certificate before submission.
+          </p>
+        </div>
+
+        <!-- Tool 6: Whisper AI -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-rose-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🎙️</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-rose-950 text-rose-400 border border-rose-800">OpenAI Whisper</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Multi-Language Ear</h3>
+            <p class="text-xs text-rose-400 font-mono">Local Speech-to-Text Neural Net</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Listened to the audio slices of our export completely offline. Transcribed German words to confirm 100% of dialogue was German, ensuring not a single English line accidentally slipped through.
+          </p>
+        </div>
+
+        <!-- Tool 7: Modal GPU -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-amber-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">⚡</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-amber-950 text-amber-400 border border-amber-800">Modal Cloud</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Cloud Supercomputer</h3>
+            <p class="text-xs text-amber-400 font-mono">Serverless Nvidia T4 GPUs</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            When your laptop gets warm rendering large files, Modal spins up Nvidia T4 GPUs in the cloud to download all German assets in parallel and render the 10-minute master file in ~60 seconds.
+          </p>
+        </div>
+
+        <!-- Tool 8: Google Drive CLI -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-teal-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">☁️</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-teal-950 text-teal-400 border border-teal-800">gdrive CLI</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Delivery Van</h3>
+            <p class="text-xs text-teal-400 font-mono">Automated Cloud Ingestion & Sharing</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Directly uploads the 348 MB export to Google Drive and sets public viewing permissions automatically, handing back the finished submission link with zero manual clicks.
+          </p>
+        </div>
+
+        <!-- Tool 9: Python-Docx & PyPDF -->
+        <div class="glass-card rounded-xl p-5 space-y-3 border-l-4 border-l-sky-400">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">📄</span>
+            <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold bg-sky-950 text-sky-400 border border-sky-800">Python Document Parsers</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">The Script Reader</h3>
+            <p class="text-xs text-sky-400 font-mono">docx & PDF Ingestion</p>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Reads the client's assignment instructions and extracts raw subtitle lines directly from Word documents, feeding them into the subtitle formatting pipeline automatically.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: Interactive Step-by-Step Flowchart -->
+    <section class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg">3</div>
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">The End-to-End Pipeline (Click to Step Through)</h2>
+          <p class="text-slate-400 text-sm">See how raw files turn into the final video in 5 stages</p>
+        </div>
+      </div>
+
+      <!-- Step Buttons -->
+      <div class="flex flex-wrap gap-2 text-xs font-semibold">
+        <button onclick="showStep(1)" id="btn-step-1" class="step-pill px-4 py-2 rounded-lg bg-slate-800 text-slate-300 active">1. Input Ingestion</button>
+        <button onclick="showStep(2)" id="btn-step-2" class="step-pill px-4 py-2 rounded-lg bg-slate-800 text-slate-300">2. Audio Sync</button>
+        <button onclick="showStep(3)" id="btn-step-3" class="step-pill px-4 py-2 rounded-lg bg-slate-800 text-slate-300">3. Video Assembly</button>
+        <button onclick="showStep(4)" id="btn-step-4" class="step-pill px-4 py-2 rounded-lg bg-slate-800 text-slate-300">4. AI Quality Audit</button>
+        <button onclick="showStep(5)" id="btn-step-5" class="step-pill px-4 py-2 rounded-lg bg-slate-800 text-slate-300">5. Cloud Delivery</button>
+      </div>
+
+      <!-- Step Details Box -->
+      <div id="step-content" class="p-6 rounded-xl bg-slate-900 border border-slate-800 space-y-4">
+        <!-- Dynamic content injected here via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 5: Summary Banner -->
+    <footer class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-purple-950/30 to-slate-900 border border-cyan-500/30 text-center space-y-3">
+      <h3 class="text-xl font-bold text-white">The Big Takeaway</h3>
+      <p class="text-slate-300 text-sm max-w-2xl mx-auto leading-relaxed">
+        What used to take an editor an entire workday of repetitive trimming, scrubbing waveforms, and drawing manual blur masks is now a <strong>fully automated, repeatable 3-minute pipeline</strong> backed by AI quality control.
+      </p>
+      <div class="pt-2 text-xs font-mono text-cyan-400">
+        Output: rajniesh_6299660736.mp4 • 1080p H.264 • Broadcast Ready
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Step Switcher Script -->
+  <script>
+    const steps = {
+      1: {
+        title: "Stage 1: Input Ingestion & Parsing",
+        subtitle: "gdrive CLI + python-docx + PyPDF",
+        desc: "The system reads the Google Drive link and downloads the raw materials in parallel: the reference English promo, German episode masters, VO hook, CTA clip, animated show logo, and client subtitle Word document.",
+        badge: "Takes ~10 seconds"
+      },
+      2: {
+        title: "Stage 2: Algorithmic Multi-Camera Audio Sync",
+        subtitle: "SciPy Waveform Cross-Correlation + Whisper",
+        desc: "SciPy compares the promo's sound waves against all episode tracks simultaneously. It snaps matching peaks together like puzzle pieces, generating the exact frame-level cut points for Episodes 5 to 14 with sub-frame accuracy.",
+        badge: "Takes ~15 seconds"
+      },
+      3: {
+        title: "Stage 3: Headless Assembly & Procedural Compositing",
+        subtitle: "FFmpeg + NumPy Feathered Masking",
+        desc: "FFmpeg cuts the episode scenes, applies a feathered 25px Gaussian alpha blur to wipe the old English title without box seams, overlays the German title logo at Y=867, burns dual-line subtitles, and stitches the German CTA end card.",
+        badge: "Takes ~60 seconds on GPU"
+      },
+      4: {
+        title: "Stage 4: Autonomous Multimodal AI Quality Gate",
+        subtitle: "Gemini 3.8 Flash + Whisper AI",
+        desc: "Gemini 3.8 Flash inspects key frames (2s, 10s, 24s, 300s, 638s) to verify zero ghost text, smooth feathering, and sharp typography. Whisper listens to dialogue to ensure 100% German speech.",
+        badge: "Cost: < $0.005"
+      },
+      5: {
+        title: "Stage 5: Automated Cloud Delivery",
+        subtitle: "gdrive CLI & Share Configuration",
+        desc: "The completed 348 MB master MP4 is uploaded to Google Drive, permissioned for public viewing ('anyone with link as reader'), and the shareable submission URL is returned to the user.",
+        badge: "Instant Delivery"
+      }
+    };
+
+    function showStep(num) {
+      // update buttons
+      document.querySelectorAll('.step-pill').forEach((btn, idx) => {
+        if (idx + 1 === num) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      const data = steps[num];
+      const box = document.getElementById('step-content');
+      box.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase font-mono font-bold text-cyan-400 tracking-wider">${data.subtitle}</span>
+          <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-cyan-950 border border-cyan-800 text-cyan-300">${data.badge}</span>
+        </div>
+        <h4 class="text-lg font-bold text-white">${data.title}</h4>
+        <p class="text-sm text-slate-300 leading-relaxed">${data.desc}</p>
+      `;
+    }
+
+    // initialize on stage 1
+    showStep(1);
+  </script>
+</body>
+</html>
